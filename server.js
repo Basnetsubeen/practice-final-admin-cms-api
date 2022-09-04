@@ -4,16 +4,19 @@ import helmet from "helmet";
 import cors from "cors";
 
 const app = express();
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 8000;
 
 //db connect
-
+import { dbConnection } from "./src/config/dbConfig.js";
+dbConnection();
 //middlewares
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
 //apis
+import AdminUserRouter from "./src/routers/AdminUserRouter.js";
+app.use("/api/v1/admin-user", AdminUserRouter);
 
 //check
 app.get("/", (req, res) => {
